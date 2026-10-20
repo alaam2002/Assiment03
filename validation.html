@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registration form with JavaScript validation.">
+    <title>Assi03 - Registration</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  
+<header class="site-header">
+    <h2 class="logo">Registration Form</h2>
+
+    <nav aria-label="Main navigation">
+        <ul>
+            <li><a class="active" href="validation.html">Home</a></li>
+            <li><a href="data.html">Data</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="container">
+        <h2>Registration Form</h2>
+
+        <form id="registerForm" novalidate>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+            <span class="error" id="nameError"></span>
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+            <span class="error" id="emailError"></span>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <span class="error" id="passwordError"></span>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+            <span class="error" id="confirmPasswordError"></span>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age">
+            <span class="error" id="ageError"></span>
+
+            <button type="submit">Register</button>
+
+        </form>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>

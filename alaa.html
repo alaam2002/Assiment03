@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore reusable web components, buttons, cards, tables, and accessible form elements.">
+    <title>Assi03</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space);
+    padding: 14px var(--space);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.header ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-header a:not(.logo) {
+    text-decoration: none;
+    color: var(--muted);
+    padding: 4px 0;
+}
+
+.site-header a:not(.logo):hover,
+.site-header a.active {
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+}
+
+</style>
+<body>
+
+    <header class="site-header">
+        <a class="logo" >Registration Form</a>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a >Home</a></li>
+                <li><a class="active" href="data.html ">Data</a></li>
+            </ul>
+        </nav>
+    </header>
+ <form id="registerForm">
+
+            <label for="name">Name</label>
+            <input type="text" id="name">
+            <span class="error" id="nameError"></span>
+
+            <label for="email">Email</label>
+            <input type="text" id="email">
+            <span class="error" id="emailError"></span>
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+            <span class="error" id="passwordError"></span>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword">
+            <span class="error" id="confirmPasswordError"></span>
+
+            <label for="age">Age</label>
+            <input type="number" id="age">
+            <span class="error" id="ageError"></span>
+
+            <button type="submit">Register</button>
+
+        </form>
+   
+
+</body>
+</html>
+<script>
+    
+let form = document.getElementById("registerForm");
+
+form.addEventListener("submit", function(event) {
+
+    // Stop the form from being submitted
+    event.preventDefault();
+
+    // Get the values entered by the user
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+    let age = document.getElementById("age").value;
+
+    // Clear previous error messages
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passwordError").textContent = "";
+    document.getElementById("confirmPasswordError").textContent = "";
+    document.getElementById("ageError").textContent = "";
+
+    let isValid = true;
+
+    // Check name
+    if (name === "") {
+        document.getElementById("nameError").textContent =
+            "Name is required.";
+        isValid = false;
+    }
+
+    // Check email
+    if (email === "") {
+        document.getElementById("emailError").textContent =
+            "Email is required.";
+        isValid = false;
+    } else if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById("emailError").textContent =
+            "Enter a valid email.";
+        isValid = false;
+    }
+
+    // Check password
+    if (password.length < 8) {
+        document.getElementById("passwordError").textContent =
+            "Password must be at least 8 characters.";
+        isValid = false;
+    }
+
+    // Check confirm password
+    if (confirmPassword === "") {
+        document.getElementById("confirmPasswordError").textContent =
+            "Please confirm your password.";
+        isValid = false;
+    } else if (password !== confirmPassword) {
+        document.getElementById("confirmPasswordError").textContent =
+            "Passwords do not match.";
+        isValid = false;
+    }
+
+    // Check age
+    if (age === "") {
+        document.getElementById("ageError").textContent =
+            "Age is required.";
+        isValid = false;
+    } else if (Number(age) < 18 || Number(age) > 100) {
+        document.getElementById("ageError").textContent =
+            "Age must be between 18 and 100.";
+        isValid = false;
+    }
+
+    // If everything is valid
+    if (isValid) {
+        alert("Registration successful!");
+        form.reset();
+    }
+
+});
+
+</script>

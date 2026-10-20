@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+    <link rel="stylesheet" href="data.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <h2 class="logo">People Data Table</h2>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="validation.html">Home</a></li>
+                <li><a class="active" href="data.html">Data</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        <input type="text" id="search" placeholder="Search...">
+
+        <button class="btn" id="sortName">Sort by Name</button>
+        <button class="btn" id="sortAge">Sort by Age</button>
+
+       <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+
+    <tbody id="tableBody">
+    </tbody>
+</table>
+    </main>
+
+   <script>
+    
+let people = [
+    { name: "Ahmed", email: "ahmed@example.com", age: 25 },
+    { name: "Mona", email: "mona@example.com", age: 20 },
+    { name: "Ali", email: "ali@example.com", age: 30 },
+    { name: "Sara", email: "sara@example.com", age: 22 },
+    { name: "Omar", email: "omar@example.com", age: 27 }
+];
+
+// Get the registrations saved from the form
+let registeredPeople =
+    JSON.parse(localStorage.getItem("registeredPeople")) || [];
+
+// Combine sample data and registered users
+let allPeople = people.concat(registeredPeople);
+
+let tableBody = document.getElementById("tableBody");
+let search = document.getElementById("search");
+
+// Display data in the table
+function displayData(data) {
+
+    tableBody.innerHTML = "";
+
+    data.forEach(function(person) {
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${person.name}</td>
+            <td>${person.email}</td>
+            <td>${person.age}</td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+}
+
+// Display all data when the page opens
+displayData(allPeople);
+
+// Search while typing
+search.addEventListener("input", function() {
+
+    let searchValue = search.value.toLowerCase();
+
+    let filteredPeople = allPeople.filter(function(person) {
+
+        return person.name.toLowerCase().includes(searchValue) ||
+               person.email.toLowerCase().includes(searchValue) ||
+               person.age.toString().includes(searchValue);
+    });
+
+    displayData(filteredPeople);
+});
+
+document.getElementById("sortName").addEventListener("click", function() {
+
+    allPeople.sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+    });
+
+    displayData(allPeople);
+});
+
+document.getElementById("sortAge").addEventListener("click", function() {
+
+    allPeople.sort(function(a, b) {
+        return a.age - b.age;
+    });
+
+    displayData(allPeople);
+});
+
+   </script>
+
+</body>
+</html>
